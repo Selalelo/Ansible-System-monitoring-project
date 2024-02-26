@@ -1,0 +1,9 @@
+---
+- name: System Monitoring Setup
+  hosts: master
+  become: yes
+  roles:
+    - prometheus
+    - node_exporter
+    - grafana
+
