@@ -1,0 +1,30 @@
+---
+- name: Install Prometheus
+  become: yes
+  apt:
+    name: prometheus
+    state: present
+
+- name: Copy Prometheus configuration
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+  notify: Restart Prometheus
+
+- name: Start Prometheus
+  service:
+    name: prometheus
+    state: started
+    enabled: yes
+
+- name: Ensure Prometheus starts on boot
+  systemd:
+    name: prometheus
+    enabled: yes
+
+handlers:
+  - name: Restart Prometheus
+    service:
+      name: prometheus
+      state: restarted
+
