@@ -7,9 +7,9 @@
 
 - name: Copy Prometheus configuration
   template:
-    src: prometheus.yml.j2
+    src: roles/prometheus/template/prometheus.yml.j2
     dest: /etc/prometheus/prometheus.yml
-  notify: Restart Prometheus
+  notify: restart prometheus
 
 - name: Start Prometheus
   service:
@@ -21,10 +21,4 @@
   systemd:
     name: prometheus
     enabled: yes
-
-handlers:
-  - name: Restart Prometheus
-    service:
-      name: prometheus
-      state: restarted
 
