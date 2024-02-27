@@ -1,11 +1,20 @@
 ---
+- name: Add Grafana APT Repository
+  become: yes
+  apt_repository:
+    repo: deb https://packages.grafana.com/oss/deb stable main
+    state: present
+    update_cache: yes
+
 - name: Install Grafana
   become: yes
   apt:
     name: grafana
     state: present
+    update_cache: yes
 
 - name: Start Grafana
+  become: yes
   service:
     name: grafana-server
     state: started
