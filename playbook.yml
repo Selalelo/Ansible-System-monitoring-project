@@ -6,4 +6,5 @@
     - prometheus
     - node_exporter
     - grafana
-
+  handlers:
+    - include: roles/prometheus/handlers/main.yml
