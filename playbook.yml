@@ -1,10 +1,17 @@
 ---
 - name: System Monitoring Setup
-  hosts: master
+  hosts: targets
   become: yes
   roles:
     - prometheus
     - node_exporter
+
+- name: Grafana setup
+  hosts: master
+  become: yes
+  roles:
     - grafana
+
   handlers:
     - include: roles/prometheus/handlers/main.yml
+    - include: roles/grafana/handlers/main.yml
